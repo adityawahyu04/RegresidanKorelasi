@@ -12,8 +12,8 @@ public class RegresiKorelasi_Genshin : MonoBehaviour
         List<float> kumpulannilaiy = new List<float>();
 
         float konstanta = Konstanta(kumpulannilaix, kumpulannilaiy);
-        Debug.Log("Relasi dan Korelasi antara banyak craft dengan bonus craft - Genshin Impact");
-        Debug.Log("Dibuat oleh : Dzulfiqar Zahran (152018004) & Andika Budi Cahyadi (152018011)");
+        Debug.Log("Relasi dan Korelasi antara banyak craft dengan bonus craft");
+        Debug.Log("Aditya Wahyu T 152018031");
         Debug.Log("Berapa banyak material yang akan di craft?");
         int x = Convert.ToInt32(Console.ReadLine());
         Debug.Log("Banyak craft material : " + x);

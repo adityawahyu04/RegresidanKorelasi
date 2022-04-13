@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 
 public class Perhitungan : MonoBehaviour
 {
@@ -21,9 +22,12 @@ public class Perhitungan : MonoBehaviour
     public Text ModelReg;
     public Text Korelasi;
     public Text Kontribusi;
+    string filename = "";
+    string text = "";
+    string text2 = "";
     void Start()
     {
-        
+        filename = Application.dataPath + "/output.csv";
     }
 
     // Update is called once per frame
@@ -90,33 +94,40 @@ public class Perhitungan : MonoBehaviour
         if (r < 0)
         {
             Debug.Log("Hubungan Terbalik");
+            text = "Hubungan Terbalik";
         }
         else
         {
             Debug.Log("Hubungan Lurus / Linear");
+            text = "Hubungan Lurus / Linear";
         }
 
         if (r >= 0.8)
         {
             Debug.Log("Sangat Kuat");
+            text2 = "Sangat Kuat";
         }
         else if (r>= 0.6)
         {
             Debug.Log("Kuat");
+            text2 = "Kuat";
         }
 
         else if (r >= 0.4)
         {
             Debug.Log("Sedang");
+            text2 = "Sedang";
         }
 
         else if (r>= 0.2)
         {
             Debug.Log("Lemah");
+            text2 = "Lemah";
         }
         else
         {
             Debug.Log("Sangat Lemah");
+            text2 = "Sangat Lemah";
         }
 
         Korelasi.text = r.ToString("N3");
@@ -126,6 +137,31 @@ public class Perhitungan : MonoBehaviour
         det = Math.Pow(r,2) * 100;
 
         Kontribusi.text = (det.ToString("N3")+"%");
+
+        TextWriter tw = new StreamWriter(filename, false);
+        tw.WriteLine("Craft ke - 1 = "+ craft1.text);
+        tw.WriteLine("Craft ke - 2 = "+ craft2.text);
+        tw.WriteLine("Craft ke - 3 = "+ craft3.text);
+        tw.WriteLine("Craft ke - 4 = "+ craft4.text);
+        tw.WriteLine("Craft ke - 5 = "+ craft5.text);
+
+        tw.WriteLine("\n");
+        tw.WriteLine("Bonus craft ke - 1 = "+ bonus1.text);
+        tw.WriteLine("Bonus craft ke - 2 = "+ bonus2.text);
+        tw.WriteLine("Bonus craft ke - 3 = "+ bonus3.text);
+        tw.WriteLine("Bonus craft ke - 4 = "+ bonus4.text);
+        tw.WriteLine("Bonus craft ke - 5 = "+ bonus5.text);
+
+        tw.WriteLine("\n");
+        tw.WriteLine("Model Regresi : " + "y = " + a.ToString("N3") + "+" + b.ToString("N3") + "X");
+        tw.WriteLine(r);
+        tw.WriteLine("Hubungannya adalah " + text);
+        tw.WriteLine("Kekuatan Hubungannya adalah " + text2);
+        tw.WriteLine("Kontribusi = "+ det.ToString("N3") + "%");
+
+        tw.Close();
+        Debug.Log("Data sudah di export");
+
 
     }
 }
